@@ -1,4 +1,4 @@
-# 212 Group Project Semester 2 of Academic Year 2022
+# Musik : Music streaming website
 
 ## About this project
 
