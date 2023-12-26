@@ -1,0 +1,384 @@
+{
+	"info": {
+		"_postman_id": "332a1be8-92c1-4e7e-ae70-efa997798f8e",
+		"name": "ITCS212 Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7928943"
+	},
+	"item": [
+		{
+			"name": "Product Stuff",
+			"item": [
+				{
+					"name": "Get all song",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJuZXciLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTE2MjM5MDIyfQ.O4GdGYEp8wmP_5K92d2_E9IYHfFxDoPrmcvD2FPqGlrxVOutR2BZ6sP4CL3kq-JSbEHuH-ed95IBNk_V5ykuSjpBGjjUt5rsdDUe2ClTGeGBpvxgWHqd-TryqO3LgsZKqhEcEiyJAKMvbnvvLHVtmU7oDd1nFU9On4TEcnc6J6Hbf0FgWUUpk6smSB2OkXsPme-92Es8Cdl0S2BZJApSVXqndQcwqGlPklj_d8SUxGpOI9eNVZRZ2wzSx_f0T8ftB4a8DQlItLxt5zIZ18orLBHO_MYR3MbefxwzIPw3f6plrL72ywgBITr3boJKe-5ZS_7c-iworFSWTakCb0WD5sywN5BSHAVqEa3tCqT-gtmiW2C5Lj0mGoIOmYyBxvaKUhW8NNzyEDjDBXlh_D1rT_qs1BN3ptdKBhC4rmi0Zn4oHCnNU0xVan6ii1yckYp8H1cQxJ2_3gPjfc2AP9hEseci0iMsicF_cpSkVG_gEhyhQm4mAiRWZuN_M6j0IfcY5aZedezlO5fgZ2m3LZVUz1iyXGHVvlpE1i9vaxQccpjYtTM-M-QC3L0MhX4EyEzyOjSt_FLa5dhj2srUWcn-bM33eTVTqMAyTsq50lUfWqiGNpDAoYEy7PmJCB4AG0DXfTHEMphnO61ayDGELzteXU3Z3WeZBhkEt5v9r_E6sl4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/song",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"song"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Song",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/searchSong?artist=Rat",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"searchSong"
+							],
+							"query": [
+								{
+									"key": "artist",
+									"value": "Rat"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Song Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "songID",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/deleteSong",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deleteSong"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert song",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "link",
+									"value": "www.youtube.com/watch?v=2QdPxdcMhFQ",
+									"type": "text"
+								},
+								{
+									"key": "artist",
+									"value": "The Fat Rat & NEFFEX",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Back One Day (Outro Song)",
+									"type": "text"
+								},
+								{
+									"key": "updatedDate",
+									"value": "2022-12-16",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/insertSong",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"insertSong"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJuZXciLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTE2MjM5MDIyfQ.O4GdGYEp8wmP_5K92d2_E9IYHfFxDoPrmcvD2FPqGlrxVOutR2BZ6sP4CL3kq-JSbEHuH-ed95IBNk_V5ykuSjpBGjjUt5rsdDUe2ClTGeGBpvxgWHqd-TryqO3LgsZKqhEcEiyJAKMvbnvvLHVtmU7oDd1nFU9On4TEcnc6J6Hbf0FgWUUpk6smSB2OkXsPme-92Es8Cdl0S2BZJApSVXqndQcwqGlPklj_d8SUxGpOI9eNVZRZ2wzSx_f0T8ftB4a8DQlItLxt5zIZ18orLBHO_MYR3MbefxwzIPw3f6plrL72ywgBITr3boJKe-5ZS_7c-iworFSWTakCb0WD5sywN5BSHAVqEa3tCqT-gtmiW2C5Lj0mGoIOmYyBxvaKUhW8NNzyEDjDBXlh_D1rT_qs1BN3ptdKBhC4rmi0Zn4oHCnNU0xVan6ii1yckYp8H1cQxJ2_3gPjfc2AP9hEseci0iMsicF_cpSkVG_gEhyhQm4mAiRWZuN_M6j0IfcY5aZedezlO5fgZ2m3LZVUz1iyXGHVvlpE1i9vaxQccpjYtTM-M-QC3L0MhX4EyEzyOjSt_FLa5dhj2srUWcn-bM33eTVTqMAyTsq50lUfWqiGNpDAoYEy7PmJCB4AG0DXfTHEMphnO61ayDGELzteXU3Z3WeZBhkEt5v9r_E6sl4",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin Stuff",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "new",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "new",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Admins",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "new",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "new",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/getAdmins",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"getAdmins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Admins",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3000/searchAdmin?username=new",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"searchAdmin"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "new"
+								},
+								{
+									"key": "fname",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "lname",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "fname",
+									"value": "testf",
+									"type": "text"
+								},
+								{
+									"key": "lname",
+									"value": "testl",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/addAdmin",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete admin",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJuZXciLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTE2MjM5MDIyfQ.O4GdGYEp8wmP_5K92d2_E9IYHfFxDoPrmcvD2FPqGlrxVOutR2BZ6sP4CL3kq-JSbEHuH-ed95IBNk_V5ykuSjpBGjjUt5rsdDUe2ClTGeGBpvxgWHqd-TryqO3LgsZKqhEcEiyJAKMvbnvvLHVtmU7oDd1nFU9On4TEcnc6J6Hbf0FgWUUpk6smSB2OkXsPme-92Es8Cdl0S2BZJApSVXqndQcwqGlPklj_d8SUxGpOI9eNVZRZ2wzSx_f0T8ftB4a8DQlItLxt5zIZ18orLBHO_MYR3MbefxwzIPw3f6plrL72ywgBITr3boJKe-5ZS_7c-iworFSWTakCb0WD5sywN5BSHAVqEa3tCqT-gtmiW2C5Lj0mGoIOmYyBxvaKUhW8NNzyEDjDBXlh_D1rT_qs1BN3ptdKBhC4rmi0Zn4oHCnNU0xVan6ii1yckYp8H1cQxJ2_3gPjfc2AP9hEseci0iMsicF_cpSkVG_gEhyhQm4mAiRWZuN_M6j0IfcY5aZedezlO5fgZ2m3LZVUz1iyXGHVvlpE1i9vaxQccpjYtTM-M-QC3L0MhX4EyEzyOjSt_FLa5dhj2srUWcn-bM33eTVTqMAyTsq50lUfWqiGNpDAoYEy7PmJCB4AG0DXfTHEMphnO61ayDGELzteXU3Z3WeZBhkEt5v9r_E6sl4",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "JWT request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJuZXciLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTE2MjM5MDIyfQ.O4GdGYEp8wmP_5K92d2_E9IYHfFxDoPrmcvD2FPqGlrxVOutR2BZ6sP4CL3kq-JSbEHuH-ed95IBNk_V5ykuSjpBGjjUt5rsdDUe2ClTGeGBpvxgWHqd-TryqO3LgsZKqhEcEiyJAKMvbnvvLHVtmU7oDd1nFU9On4TEcnc6J6Hbf0FgWUUpk6smSB2OkXsPme-92Es8Cdl0S2BZJApSVXqndQcwqGlPklj_d8SUxGpOI9eNVZRZ2wzSx_f0T8ftB4a8DQlItLxt5zIZ18orLBHO_MYR3MbefxwzIPw3f6plrL72ywgBITr3boJKe-5ZS_7c-iworFSWTakCb0WD5sywN5BSHAVqEa3tCqT-gtmiW2C5Lj0mGoIOmYyBxvaKUhW8NNzyEDjDBXlh_D1rT_qs1BN3ptdKBhC4rmi0Zn4oHCnNU0xVan6ii1yckYp8H1cQxJ2_3gPjfc2AP9hEseci0iMsicF_cpSkVG_gEhyhQm4mAiRWZuN_M6j0IfcY5aZedezlO5fgZ2m3LZVUz1iyXGHVvlpE1i9vaxQccpjYtTM-M-QC3L0MhX4EyEzyOjSt_FLa5dhj2srUWcn-bM33eTVTqMAyTsq50lUfWqiGNpDAoYEy7PmJCB4AG0DXfTHEMphnO61ayDGELzteXU3Z3WeZBhkEt5v9r_E6sl4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/insertSong",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"insertSong"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
