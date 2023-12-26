@@ -1,0 +1,7 @@
+/* Shared CSS Styling Config */
+.bg-img {
+    background-image: url('./img/bg.jpg');
+    height: 100vh;
+    background-size: 100%;
+    background-position: 40% 30%;
+}

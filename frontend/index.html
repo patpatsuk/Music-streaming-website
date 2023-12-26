@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- ! include data-bs-theme="dark" on your html tag, this force bootstrap to use dark theme-->
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--! include these line in your file -->
+    <link rel="stylesheet" type="text/css" href="shared.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R58MLP763C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-R58MLP763C');
+</script>
+    <!-- ! -->
+    <script>
+      let isAdmin = localStorage.getItem("admin");
+      let jwt = localStorage.getItem('jwt');
+
+      document.addEventListener("DOMContentLoaded", ()=>{
+        if(localStorage.getItem("admin")){
+        let adminMenu = '<li class="nav-item dropdown" ><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" >Admin</a><ul class="dropdown-menu"><li><a href="/account-management" class="dropdown-item">Account Management</a></li><li><a class="dropdown-item" href="/services-management">Manage Services</a></li><li><hr class="dropdown-divider" /></li><li><button class="dropdown-item" onclick="logout()">Logout</button></li></ul></li>';
+        
+        let navBar = document.getElementById("nb");
+        navBar.innerHTML += adminMenu;
+        
+      }else {
+        let loginBTN = '<div class="navbar-text"><a href="login"><button class="btn text-light">Login</button></a></div>';
+        let navBar = document.getElementById("c");
+        navBar.innerHTML += loginBTN;
+      }
+      })
+
+      function logout(){
+        localStorage.removeItem("jwt");
+        localStorage.removeItem('admin');
+        localStorage.removeItem("username");
+
+        location.reload();
+      }
+    </script>
+    <title>MUSIK</title>
+  </head>
+  <body class="bg-img">
+    <!-- ! Navbar copy these lines-->
+
+    <nav class="navbar navbar-expand-lg bg-black shadow-sm">
+      <div class="container-fluid" id="c">
+        <ul class="navbar-nav" id="nb">
+          <li
+            class="nav-item d-flex justify-content-center align-content-center"
+          >
+            <img src="./img/logo.png" alt="logo" height="40" width="100" />
+          </li>
+          <li class="nav-item">
+            <a href="/" class="nav-link active">Home</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a href="#" class="nav-link">Musics</a>
+          </li> -->
+          <li class="nav-item">
+            <a href="/search" class="nav-link">Search</a>
+          </li>
+          <li class="nav-item">
+            <a href="/about-us" class="nav-link">About</a>
+          </li>
+
+          <!-- Admin Tools Selector -->
+        </ul>
+        <!--  -->
+
+        <!-- Logout/login -->
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+
+
+
+      </div>
+    </nav>
+    <!-- <-> -->
+
+    <div class="h-75 d-flex justify-content-center align-content-center">
+      <div class="w-50" style="padding-top: 20vh">
+        <h1 style="font-size: 200px; text-align: left">Discover</h1>
+        <span style="font-size: 30px"
+          >the latest and greatest hits from your favorite artists, explore new
+          genres, and create your own personalized playlists with ease. With a
+          vast library of songs and expertly curated playlists, our website has
+          everything you need to satisfy your musical cravings.</span
+        >
+      </div>
+    </div>
+
+    <!-- ! -->
+  </body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="shared.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>MUSIK</title>
+
+    <style>
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .pagination a {
+        margin: 0 5px;
+        padding: 5px 10px;
+        background-color: #f2f2f2;
+        color: #333;
+        border-radius: 5px;
+        text-decoration: none;
+      }
+
+      .pagination a.active {
+        background-color: #333;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ! Navbar copy these lines-->
+
+    <nav class="navbar navbar-expand-lg bg-black shadow-sm">
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li
+            class="nav-item d-flex justify-content-center align-content-center"
+          >
+            <img src="./img/logo.png" alt="logo" height="40" width="100" />
+          </li>
+          <li class="nav-item">
+            <a href="./index.html" class="nav-link active">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="./detail1.html" class="nav-link">Musics</a>
+          </li>
+          <li class="nav-item">
+            <a href="./search.html" class="nav-link">Search</a>
+          </li>
+          <li class="nav-item">
+            <a href="./aboutUs.html" class="nav-link">About</a>
+          </li>
+
+          <!-- Admin Tools Selector -->
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
+              role="button"
+              aria-expanded="false"
+              >Admin</a
+            >
+
+            <ul class="dropdown-menu">
+              <li>
+                <a href="./accountManagement.html" class="dropdown-item"
+                  >Account Management</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="./servicesManagement.html"
+                  >Manage Services</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- login -->
+        <div class="navbar-text">
+          <a href="./login.html"
+            ><button class="btn text-light btn-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-box-arrow-in-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                />
+              </svg>
+              Login
+            </button></a
+          >
+        </div>
+      </div>
+    </nav>
+    <!-- <-> -->
+
+    <br />
+    <br />
+    <div class="mx-2 my-5">
+      <div
+        class="bg-img d-flex justify-content-center align-items-center"
+        style="
+          background-image: url('background-image.jpg');
+          height: 91.5vh;
+          background-size: 100%;
+          background-position: 40% 30%;
+          filter: brightness(100%);
+        "
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h1>Fighting Gold</h1>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/ub3EI4xw48c"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="col-md-6">
+              <h1>MindaRyn - Like Flames</h1>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/q8TGietS5Q0"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <h1>DADDY ! DADDY ! DO !</h1>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/2Od7QCsyqkE"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="col-md-6">
+              <h1>Dan Dan Kokoro Hikareteku</h1>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/uC8sc0cQa9M"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+          <div class="pagination">
+            <a href="detail1.html">1</a>
+            <a href="detail2.html">2</a>
+            <a href="detail3.html">3</a>
+            <a href="detail4.html" class="active">4</a>
+            <a href="detail5.html">5</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+  </body>
+</html>

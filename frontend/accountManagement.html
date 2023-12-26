@@ -1,0 +1,784 @@
+<!-- Account Management -->
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Include cool format and BS -->
+    <link rel="stylesheet" href="shared.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Include SWA2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css" />
+    <script>
+      let isAdmin = localStorage.getItem("admin");
+      let jwt = localStorage.getItem("jwt");
+      let username = localStorage.getItem("username");
+
+      if (!isAdmin) {
+        location.href = "/";
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        if (localStorage.getItem("admin")) {
+          let adminMenu =
+            '<li class="nav-item dropdown" ><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" >Admin</a><ul class="dropdown-menu"><li><a href="/account-management" class="dropdown-item">Account Management</a></li><li><a class="dropdown-item" href="/services-management">Manage Services</a></li><li><hr class="dropdown-divider" /></li><li><button class="dropdown-item" onclick="logout()">Logout</button></li></ul></li>';
+
+          let navBar = document.getElementById("nb");
+          navBar.innerHTML += adminMenu;
+        } else {
+          let loginBTN =
+            '<div class="navbar-text"><a href="login"><button class="btn text-light">Login</button></a></div>';
+          let navBar = document.getElementById("c");
+          navBar.innerHTML += loginBTN;
+        }
+      });
+
+      function logout() {
+        localStorage.removeItem("jwt");
+        localStorage.removeItem("admin");
+        localStorage.removeItem("username");
+
+        location.reload();
+      }
+    </script>
+    <title>MUSIK - Account Management</title>
+  </head>
+  <body onload="defaultor(), getLcTime(), getAdminInfo()">
+    <!-- ! Navbar copy these lines-->
+
+    <nav class="navbar navbar-expand-lg bg-black shadow-sm">
+      <div class="container-fluid" id="c">
+        <ul class="navbar-nav" id="nb">
+          <li
+            class="nav-item d-flex justify-content-center align-content-center"
+          >
+            <img src="img/logo.png" alt="logo" height="40" width="100" />
+          </li>
+          <li class="nav-item">
+            <a href="/" class="nav-link active">Home</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a href="#" class="nav-link">Musics</a>
+          </li> -->
+          <li class="nav-item">
+            <a href="/search" class="nav-link">Search</a>
+          </li>
+          <li class="nav-item">
+            <a href="/about-us" class="nav-link">About</a>
+          </li>
+          <!-- Admin Tools Selector -->
+        </ul>
+        <!--  -->
+
+        <!-- Logout/login -->
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+      </div>
+    </nav>
+
+    <!-- ! -->
+
+    <!-- main -->
+    <main>
+      <br />
+      <h1 style="text-align: center; color: yellow">Account Management</h1>
+      <!-- my account -->
+      <section class="info" id="info">
+        <h3 style="text-align: left">My Account Information</h3>
+        <ul>
+          <li>
+            Staff ID:
+            <h6 id="myID"></h6>
+          </li>
+          <li>
+            Username:
+            <h6 id="myUsername"></h6>
+          </li>
+          <li>
+            Firstname:
+            <h6 id="myFirstname"></h6>
+          </li>
+          <li>
+            Lastname:
+            <h6 id="myLastname"></h6>
+          </li>
+        </ul>
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          onclick="showEditor()"
+        >
+          Edit my account
+        </button>
+        &ensp;<button
+          type="button"
+          class="btn btn-outline-light"
+          onclick="showQuery(), getAdminSearchResult()"
+        >
+          Search admin stuff/See search result</button
+        >&ensp;<button
+          type="button"
+          class="btn btn-outline-primary"
+          onclick="showAdder()"
+        >
+          Add account
+        </button>
+        &ensp;<button
+          type="button"
+          class="btn btn-outline-danger"
+          onclick="showDeletor()"
+        >
+          Delete account
+        </button>
+      </section>
+      <!-- other account -->
+      <section class="info-query">
+        <div class="row">
+          <form
+            action="/search-admin"
+            method="post"
+            name="query-form"
+            id="query-form"
+            class="form-control"
+          >
+            <br />
+            <h3 style="text-align: right">Query the account</h3>
+            <br />
+            <div class="input-group">
+              <button
+                class="btn btn-secondary"
+                type="button"
+                aria-expanded="false"
+              >
+                Search by
+              </button>
+              <br />
+              <select
+                class="form-select"
+                id="ddl"
+                name="admin_search_choice"
+                required
+              >
+                <option value="username">Username</option>
+                <option value="fname">Firstname</option>
+                <option value="lname">Lastname</option>
+              </select>
+            </div>
+            <br />
+            <input
+              type="text"
+              class="form-control"
+              aria-label="Text input with dropdown button"
+              name="admin_search_value"
+              placeholder="Type here..."
+              id="adminSearchInput"
+            />
+            <br />
+            <button onclick="getAdminSearchResult()" class="btn btn-primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-search-heart"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z"
+                />
+                <path
+                  d="M13 6.5a6.471 6.471 0 0 1-1.258 3.844c.04.03.078.062.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1.007 1.007 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5ZM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z"
+                />
+              </svg>
+              Query</button
+            ><br />
+          </form>
+        </div>
+      </section>
+
+      <!-- add account form -->
+      <section class="add" id="add">
+        <div class="adder">
+          <div
+            action="/add-admin"
+            method="post"
+            name="account-adder"
+            id="adder"
+          >
+            <h3>Account Adder</h3>
+            <label for="username" class="form-label">New Username:</label>
+            <input
+              type="text"
+              name="username"
+              id="username-adder"
+              class="form-control"
+              required
+            />
+            <label for="password" class="form-label">New Password:</label>
+            <input
+              type="password"
+              name="password"
+              id="password-adder"
+              class="form-control"
+              required
+            /><label for="fname" class="form-label">Firstname:</label
+            ><input
+              type="text"
+              name="fname"
+              id="fname-adder"
+              class="form-control"
+              required
+            /><label for="lname" class="form-label">Lastname:</label
+            ><input
+              type="text"
+              name="lname"
+              id="lname-adder"
+              class="form-control"
+              required
+            />
+            <br /><br />
+            <button class="btn btn-lg btn-primary" onclick="addAdmin()">
+              Add account
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- editor form -->
+      <section class="edit" id="edit">
+        <div class="editor">
+          <form
+            action="/update-password"
+            method="post"
+            name="password-changer"
+            id="editor"
+          >
+            <h3>Change Account Password</h3>
+            <label for="currentPassword" class="form-label"
+              >Current Password:</label
+            >
+            <input
+              type="password"
+              name="currentPassword"
+              id="current-password"
+              class="form-control"
+              required
+            />
+            <label for="newPassword" class="form-label">New Password:</label>
+            <input
+              type="password"
+              name="newPassword"
+              id="new-password"
+              class="form-control"
+              required
+              pattern=".{8,}"
+              title="must be eight characters or longer"
+            /><label for="confirmNewPassword" class="form-label"
+              >Confirm New Password:</label
+            ><input
+              type="password"
+              name="confirmNewPassword"
+              id="confirm-new-password"
+              class="form-control"
+              title="must match the above field"
+              required
+            />
+            <br />
+            <button type="submit" class="btn btn-lg btn-primary" onclick="">
+              Save new password
+            </button>
+          </form>
+          <hr />
+
+          <form
+            method="post"
+            action="/update-admin"
+            name="personal-info-editor"
+            id="editor"
+          >
+            <h3>Edit Personal INFO</h3>
+            <label for="fname"> NEW Firstname: </label>
+            <input
+              type="text"
+              name="fname"
+              id="fname-personal-info-editor"
+              class="form-control"
+              required
+            />
+            <label for="lname">NEW Lastname: </label>
+            <input
+              type="text"
+              name="lname"
+              id="lname-personal-info-editor"
+              class="form-control"
+              required
+            />
+            <br />
+            <br />
+            <button
+              type="submit"
+              class="btn btn-lg btn-primary"
+              onclick="editPersonal()"
+            >
+              Save changes
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- delete form -->
+      <section class="delete" id="delete">
+        <div class="deletor">
+          <div
+            action="/delete-admin"
+            method="post"
+            name="account-deletor"
+            id="deletor"
+          >
+            <h3>Delete an account</h3>
+
+            <label for="staffID" class="form-label">Staff ID:</label>
+            <input
+              type="text"
+              name="staffID"
+              id="staffID-deletor"
+              class="form-control"
+              required
+              title="must be number"
+            />
+            <br />
+            <button class="btn btn-lg btn-primary" onclick="deleteAdmin()">
+              Delete
+            </button>
+          </div>
+          <hr />
+        </div>
+      </section>
+    </main>
+    <!-- admin search result -->
+    <section id="result-section" class="col-6">
+      <h4>Search Result:</h4>
+      <table id="result-table" class="table table-hover">
+        <thead>
+          <tr>
+            <th>NO.</th>
+            <th>Staff ID</th>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody id="result">
+          <!-- search result will appear here -->
+        </tbody>
+      </table>
+    </section>
+    <br />
+    <footer>
+      <a
+        ><button
+          type="button"
+          onclick="location.reload()"
+          class="btn btn-sm btn-secondary"
+        >
+          &elsdot; Account management home page
+        </button></a
+      >
+    </footer>
+  </body>
+  <script>
+    var inf = document.getElementById("info");
+    var edi = document.getElementById("edit");
+    var que = document.getElementById("query-form");
+    var form = document.getElementById("editor");
+    var add = document.getElementById("add");
+    var rst = document.getElementById("result-section");
+    var del = document.getElementById("delete");
+    // var toMy = document.getElementById("to-my");
+    // Current local time
+    let dateTime = new Date();
+    dateTime =
+      "[" +
+      dateTime.toLocaleDateString() +
+      " @" +
+      dateTime.toLocaleTimeString() +
+      "] ";
+
+    // get local time function
+    function getLcTime() {
+      var today = new Date();
+      var date =
+        today.getFullYear() +
+        "." +
+        (today.getMonth() + 1) +
+        "." +
+        today.getDate();
+      var time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      dateTime = "[" + date + " @" + time + "] ";
+      var refresh = 1000; // Refresh rate in milli seconds
+      mytime = setTimeout("getLcTime()", refresh);
+    }
+
+    // redirect to logout link
+    function logout() {
+      console.log(dateTime + "Logout requested");
+      location.assign("/logout");
+    }
+
+    // make everything default function
+    function defaultor() {
+      console.log(dateTime + "The page view has been reset!");
+      inf.style.display = "block";
+      edi.style.display = "none";
+      que.style.display = "none";
+      add.style.visibility = "hidden";
+      rst.style.display = "none";
+      del.style.display = "none";
+      // toMy.style.visibility = "visible";
+      add.style.display = "none";
+      // toOth.style.display = "block";
+    }
+
+    // show account editor
+    function showEditor() {
+      console.log(dateTime + "The editor is now shown!");
+      inf.style.display = "none";
+      edi.style.display = "block";
+      edi.style.visibility = "visible";
+      que.style.visibility = "hidden";
+      rst.style.display = "none";
+      del.style.display = "none";
+    }
+
+    // show query
+    function showQuery() {
+      console.log(dateTime + "The query is now shown!");
+      inf.style.display = "none";
+      edi.style.display = "none";
+      edi.style.visibility = "hidden";
+      que.style.visibility = "visible";
+      que.style.display = "block";
+      rst.style.display = "block";
+      del.style.display = "none";
+      // toOth.style.visibility = "hidden";
+      // toMy.style.visibility = "visible";
+      // toMy.style.display = "block";
+    }
+
+    // show account deletor
+    function showDeletor() {
+      console.log(dateTime + "The deletor is now shown!");
+      inf.style.display = "none";
+      edi.style.display = "none";
+      edi.style.visibility = "hidden";
+      que.style.visibility = "hidden";
+      rst.style.display = "none";
+      del.style.display = "block";
+    }
+
+    // confirm changes
+    /* function confirmEditor() {
+      console.log(dateTime + "The editor/adder got trigged to save changes!");
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log(dateTime + "Changes are now saved!");
+          Swal.fire("Successfully", "Changes are saved!", "success").then(
+            (result) => {
+              location.assign("/account-management");
+              console.log(dateTime + "Redirected to account management page");
+            }
+          );
+        } else {
+          console.log(dateTime + "Abort changes on editor");
+          Swal.fire("Aborted", "No changes are saved!", "error").then(
+            (result) => {
+              location.assign("/account-management");
+              console.log(dateTime + "Redirected to account management page");
+            }
+          );
+        }
+      });
+    } */
+
+    // show add account form
+    function showAdder() {
+      console.log(dateTime + "The account adder is now shown!");
+      inf.style.display = "none";
+      edi.style.display = "none";
+      edi.style.visibility = "hidden";
+      que.style.visibility = "hidden";
+      add.style.visibility = "visible";
+      add.style.display = "block";
+    }
+
+    // // query submit confirmation popup
+    /* function querySubmit() {
+      var random_boolean = Math.random() < 0.5; // random boolean search result
+      console.log(dateTime + "Services queried");
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "info",
+        title: "Successfully query services",
+        showConfirmButton: false,
+        timer: 1560,
+      });
+      if (random_boolean != false) {
+        console.log(dateTime + "Services queried found");
+        edi.style.visibility = "visible";
+        edi.style.display = "block";
+        Swal.fire({
+          icon: "success",
+          title: "Found",
+          showConfirmButton: true,
+          timer: 1400,
+        });
+      } else {
+        console.log(dateTime + "Services queried not found");
+        edi.style.visibility = "hidden";
+        edi.style.display = "none";
+        Swal.fire({
+          icon: "error",
+          title: "Not found",
+          text: "Please try again",
+          showConfirmButton: true,
+          timer: 1560,
+        });
+      }
+    } */
+
+    // get current admin logged info
+    function getAdminInfo() {
+      let id = document.getElementById("myID");
+      let fn = document.getElementById("myFirstname");
+      let ln = document.getElementById("myLastname");
+      let un = document.getElementById("myUsername");
+      fetch(
+        "http://65-2-itcs212-3-7-backend.th1.proen.cloud/searchAdmin?username=" +
+          username,
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + jwt,
+          },
+        }
+      ).then((response) =>
+        response
+          .json()
+          .then((data) => {
+            // console.log(data);
+            id.innerHTML = data[0].staff_id;
+            fn.innerHTML = data[0].first_name;
+            ln.innerHTML = data[0].last_name;
+            un.innerHTML = data[0].username;
+          })
+          .catch((err) => console.log(err))
+      );
+    }
+
+    // get admin search result
+    function getAdminSearchResult() {
+      let dd = document.getElementById("ddl");
+      let searchInput = document.getElementById("adminSearchInput");
+
+      document.getElementById("result").innerHTML = "";
+
+      let choice = "";
+      if (dd.value == "username") {
+        choice = `username=${searchInput.value}`;
+      }
+      if (dd.value == "fname") {
+        choice = `fname=${searchInput.value}`;
+      }
+      if (dd.value == "lname") {
+        choice = `lname=${searchInput.value}`;
+      }
+
+      fetch(
+        `http://65-2-itcs212-3-7-backend.th1.proen.cloud/searchAdmin?` + choice,
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + jwt,
+          },
+        }
+      ).then((response) =>
+        response
+          .json()
+          .then((data) => {
+            // console.log(data);
+            let size = data.length; // amount of result
+            // for each result found
+            for (let i = 0; i < size; ++i) {
+              const tr = document.createElement("tr"); // create new `tr` element
+              const tracking = document.createElement("td"); // create new `td`
+              const id = document.createElement("td"); // create new `td`
+              const username = document.createElement("td"); // create new `td`
+              const firstname = document.createElement("td"); // create new `td`
+              const lastname = document.createElement("td"); // create new `td`
+              const remark = document.createElement("td"); // create new `td`
+
+              tr.appendChild(tracking); // append the `td` inside `tr`
+              tr.appendChild(id);
+              tr.appendChild(username);
+              tr.appendChild(firstname);
+              tr.appendChild(lastname);
+              tr.appendChild(remark);
+
+              tracking.id = "no" + String(i); // add `id` for tracking
+              id.id = "id" + String(i); // add `id` for staff id
+              username.id = "username" + String(i); // add `id` for username
+              firstname.id = "firstname" + String(i); // add `id` for firstname
+              lastname.id = "lastname" + String(i); // add `id` for lastname
+              remark.id = "remark" + String(i); // add `id` for remark
+
+              const trackingContent = document.createTextNode(
+                String(i + 1) // create tracking to each result found
+              );
+              tracking.appendChild(trackingContent); // add tracking to each `td`
+              const idContent = document.createTextNode(
+                String(data[i].staff_id) // create id to each result found
+              );
+              id.appendChild(idContent); // add id to each result found
+              const usernameContent = document.createTextNode(
+                String(data[i].username) // create username to each result found
+              );
+              username.appendChild(usernameContent); // add username to each result found
+              const firstnameContent = document.createTextNode(
+                String(data[i].first_name) // create firstname to each result found
+              );
+              firstname.appendChild(firstnameContent); // add firstname to each result found
+              const lastnameContent = document.createTextNode(
+                String(data[i].last_name) // create lastname to each result found
+              );
+              lastname.appendChild(lastnameContent); // add lastname to each result found
+
+              const element = document.getElementById("result"); // specified where to add to html
+              element.appendChild(tr); // add it to html
+            }
+          })
+          .catch((err) => console.log(err))
+      );
+    }
+
+    async function addAdmin() {
+      let username = document.getElementById("username-adder").value;
+      let password = document.getElementById("password-adder").value;
+      let fname = document.getElementById("fname-adder").value;
+      let lname = document.getElementById("lname-adder").value;
+
+      let response = await fetch(
+        "http://65-2-itcs212-3-7-backend.th1.proen.cloud/addAdmin",
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + jwt,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: `username=${username}&password=${password}&fname=${fname}&lname=${lname}`,
+        }
+      );
+
+      if ((await response.status) == 200) {
+        alert("Success");
+        location.reload();
+      } else {
+        alert("Failed: " + response.body);
+      }
+    }
+
+    async function deleteAdmin() {
+      let id = document.getElementById("staffID-deletor").value;
+
+      if (confirm("Delete staff with ID=" + id + "?")) {
+        let response = await fetch(
+          "http://65-2-itcs212-3-7-backend.th1.proen.cloud/deleteAdmin",
+          {
+            body: "staffID=" + id,
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              Authorization: "Bearer " + jwt,
+            },
+          }
+        );
+
+        if ((await response.status) == 200) {
+          alert("Success");
+        } else if ((await response.status) == 400) {
+          alert("Invalid ID");
+        } else {
+          alert("Unknown Error");
+        }
+      }
+    }
+  </script>
+  <style>
+    #result-section {
+      padding: auto;
+      margin-left: 25%;
+      margin-right: 25%;
+      margin-top: 2px;
+    }
+    .info {
+      padding: 2%;
+      margin: 1%;
+      margin-right: 20%;
+      margin-left: 25%;
+    }
+    .info-query {
+      margin-right: 22%;
+      margin-left: 7%;
+      margin-top: 3%;
+      margin-bottom: 5%;
+    }
+    .editor {
+      padding-left: 10px;
+      padding-right: 4px;
+      padding-top: 20px;
+      padding-bottom: 4px;
+      margin-top: 2%;
+      margin-bottom: auto;
+      margin-left: 10%;
+      margin-right: 10%;
+      border-color: burlywood;
+      border-style: double;
+    }
+    form {
+      padding: 2%;
+      text-align: center;
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+    footer {
+      margin-top: 1%;
+      margin-bottom: 2%;
+      margin-left: 3%;
+      margin-right: 5%;
+    }
+  </style>
+</html>
